@@ -63,7 +63,7 @@ public class HttpSender {
                     ? connection.getInputStream()
                     : connection.getErrorStream();
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             StringBuilder response = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
