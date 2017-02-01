@@ -78,4 +78,14 @@ public class ExtractTest extends Fixtures {
         Assert.assertEquals(cal.getTime(), article.getPublishDate());
     }
 
+    @Test
+    public void bunchOfKeywords() throws Exception {
+        String url = "https://www.irishtimes.com/life-and-style/motors/which-brands-do-irish-car-owners-least-consider-buying-1.2953956";
+        String body = fixture("extract/bunch_of_keywords.xml");
+        mockWebServer.enqueue(new MockResponse().setBody(body));
+        ExtractParams extractParams = new ExtractParams(null, new URL(url), false);
+        Article article = textAPIClient.extract(extractParams);
+        Assert.assertEquals(21, article.getKeywords().length);
+    }
+
 }

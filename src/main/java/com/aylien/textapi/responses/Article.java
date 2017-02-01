@@ -39,6 +39,10 @@ public class Article {
     @XmlElement(name="feed")
     private String[] feeds;
 
+    @XmlElementWrapper(name="keywords")
+    @XmlElement(name="keyword")
+    private String[] keywords;
+
     private Date publishDate;
 
     public String getTitle() {
@@ -99,5 +103,13 @@ public class Article {
 
     public String toString() {
         return this.title;
+    }
+
+    public String[] getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String[] keywords) {
+        this.keywords = keywords;
     }
 }
