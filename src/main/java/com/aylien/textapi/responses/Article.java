@@ -39,9 +39,9 @@ public class Article {
     @XmlElement(name="feed")
     private String[] feeds;
 
-    @XmlElementWrapper(name="keywords")
-    @XmlElement(name="keyword")
-    private String[] keywords;
+    @XmlElementWrapper(name="tags")
+    @XmlElement(name="tag")
+    private String[] tags;
 
     private Date publishDate;
 
@@ -105,11 +105,11 @@ public class Article {
         return this.title;
     }
 
-    public String[] getKeywords() {
-        return keywords;
+    public String[] getTags() {
+        return tags;
     }
 
-    public void setKeywords(String[] keywords) {
-        this.keywords = keywords;
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 }

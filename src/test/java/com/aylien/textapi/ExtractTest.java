@@ -85,7 +85,7 @@ public class ExtractTest extends Fixtures {
         mockWebServer.enqueue(new MockResponse().setBody(body));
         ExtractParams extractParams = new ExtractParams(null, new URL(url), false);
         Article article = textAPIClient.extract(extractParams);
-        Assert.assertEquals(21, article.getKeywords().length);
+        Assert.assertEquals(21, article.getTags().length);
     }
 
 }
