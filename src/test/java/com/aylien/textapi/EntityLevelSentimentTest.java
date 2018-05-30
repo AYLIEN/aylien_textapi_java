@@ -32,7 +32,7 @@ import static com.aylien.textapi.FixturesHelpers.*;
 public class EntityLevelSentimentTest extends Fixtures {
     @Test
     public void englishText() throws Exception {
-        String text = "Steve Jobs , the CEO of Apple , is a bad person";
+        String text = "Steve Jobs was a brilliant person";
         String body = fixture("elsa/en_text.xml");
         mockWebServer.enqueue(new MockResponse().setBody(body));
         EntityLevelSentimentParams.Builder builder = EntityLevelSentimentParams.newBuilder();
@@ -71,23 +71,5 @@ public class EntityLevelSentimentTest extends Fixtures {
             }
             Assert.assertEquals(1,1);
         }
-
-//        Assert.assertEquals(entities.getText(), text);
-//        Assert.assertEquals(entities.getEntities().size(), 4);
-//        for (Entity e: entities.getEntities()) {
-//            if (e.getType().equals("organization")) {
-//                Assert.assertEquals(e.getSurfaceForms().size(), 1);
-//                Assert.assertTrue(e.getSurfaceForms().get(0).equals("Apple Inc."));
-//            } else if (e.getType().equals("keyword")) {
-//                Assert.assertEquals(e.getSurfaceForms().size(), 11);
-//            } else if (e.getType().equals("date")) {
-//                Assert.assertEquals(e.getSurfaceForms().size(), 2);
-//            } else if (e.getType().equals("product")) {
-//                Assert.assertEquals(e.getSurfaceForms().size(), 1);
-//                Assert.assertTrue(e.getSurfaceForms().get(0).equals("iPhone"));
-//            } else {
-//                Assert.fail("unexpected entity type");
-//            }
-//        }
     }
 }
