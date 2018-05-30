@@ -503,6 +503,38 @@ public class TextAPIClient {
     }
 
     /**
+     * Returns the sentiment towards found entities on given text.
+     *
+     * @param params entity level sentiment analysis parameters
+     * @return EntityLevelSentiment
+     */
+    public EntitiesSentiment entityLevelSentiment(EntityLevelSentimentParams params) throws TextAPIException {
+        Map<String, String> parameters = new HashMap<String, String>();
+        if (params.getText() != null) {
+            parameters.put("text", params.getText());
+        } else if (params.getUrl() != null) {
+            parameters.put("url", params.getUrl().toString());
+        } else {
+            throw new IllegalArgumentException("You must either provide text or url");
+        }
+
+        EntitiesSentiment entitiesSentiment;
+        try {
+            String response = this.doHttpRequest("elsa" , transformParameters(parameters));
+            JAXBContext jc = JAXBContext.newInstance(EntitiesSentiment.class);
+            Unmarshaller u = jc.createUnmarshaller();
+
+            JAXBElement<EntitiesSentiment> root =
+                    u.unmarshal(new StreamSource(new StringReader(response)), EntitiesSentiment.class);
+            entitiesSentiment = root.getValue();
+        } catch(Exception e) {
+            throw new TextAPIException(e);
+        }
+
+        return entitiesSentiment;
+    }
+
+    /**
      * Summarizes an article into a few key sentences.
      *
      * @param summarizeParams summarize params
