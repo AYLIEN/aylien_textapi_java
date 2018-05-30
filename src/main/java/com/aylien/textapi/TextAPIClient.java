@@ -187,42 +187,6 @@ public class TextAPIClient {
     }
 
     /**
-     * Picks the most semantically relevant class label or tag.
-     *
-     * @param classifyParams classify parameters
-     * @return UnsupervisedClassifications
-     */
-    public UnsupervisedClassifications unsupervisedClassify(UnsupervisedClassifyParams classifyParams) throws TextAPIException {
-        Map<String, List<String>> parameters = new HashMap<String, List<String>>();
-        if (classifyParams.getText() != null) {
-            parameters.put("text", Arrays.asList(classifyParams.getText()));
-        } else if (classifyParams.getUrl() != null) {
-            parameters.put("url", Arrays.asList(classifyParams.getUrl().toString()));
-        } else {
-            throw new IllegalArgumentException("You must either provide text or url");
-        }
-
-        parameters.put("class", Arrays.asList(classifyParams.getClasses()));
-
-        if (classifyParams.getNumberOfConcepts() > 0) {
-            parameters.put("number_of_concepts", Arrays.asList(Integer.toString(classifyParams.getNumberOfConcepts())));
-        }
-
-        UnsupervisedClassifications unsupervisedClassifications;
-        try {
-            String response = this.doHttpRequest("classify/unsupervised", parameters);
-            JAXBContext jc = JAXBContext.newInstance(UnsupervisedClassifications.class);
-            Unmarshaller u = jc.createUnmarshaller();
-
-            unsupervisedClassifications = (UnsupervisedClassifications) u.unmarshal(new StringReader(response));
-        } catch (Exception e) {
-            throw new TextAPIException(e);
-        }
-
-        return unsupervisedClassifications;
-    }
-
-    /**
      * Run multiple analysis operations in one API call by specifying multiple
      * endpoints.
      *
@@ -392,38 +356,6 @@ public class TextAPIClient {
     }
 
     /**
-     * Returns phrases related to the provided unigram or bigram.
-     *
-     * @param relatedParams related parameters
-     * @return Related
-     */
-    public Related related(RelatedParams relatedParams) throws TextAPIException {
-        Map<String, String> parameters = new HashMap<String, String>();
-        if (relatedParams.getPhrase() != null) {
-            parameters.put("phrase", relatedParams.getPhrase());
-        } else {
-            throw new IllegalArgumentException("You must provide a phrase");
-        }
-
-        if (relatedParams.getCount() > 0) {
-            parameters.put("count", Integer.toString(relatedParams.getCount()));
-        }
-
-        Related related;
-        try {
-            String response = this.doHttpRequest("related", transformParameters(parameters));
-            JAXBContext jc = JAXBContext.newInstance(Related.class);
-            Unmarshaller u = jc.createUnmarshaller();
-
-            related = (Related) u.unmarshal(new StringReader(response));
-        } catch (Exception e) {
-            throw new TextAPIException(e);
-        }
-
-        return related;
-    }
-
-    /**
      * Detects sentiment of a body of text in terms of polarity
      * ("positive" or "negative") and subjectivity
      * ("subjective" or "objective").
@@ -574,34 +506,6 @@ public class TextAPIClient {
         }
 
         return summarize;
-    }
-
-    /**
-     * Extracts microformats
-     *
-     * @param microformatsParams microformats params
-     * @return Microformats
-     */
-    public Microformats microformats(MicroformatsParams microformatsParams) throws TextAPIException {
-        Map<String, String> parameters = new HashMap<String, String>();
-        if (microformatsParams.getUrl() == null) {
-            throw new IllegalArgumentException("You must provide a url");
-        }
-
-        parameters.put("url", microformatsParams.getUrl().toString());
-
-        Microformats microformats;
-        try {
-            String response = this.doHttpRequest("microformats", transformParameters(parameters));
-            JAXBContext jc = JAXBContext.newInstance(Microformats.class);
-            Unmarshaller u = jc.createUnmarshaller();
-
-            microformats = (Microformats) u.unmarshal(new StringReader(response));
-        } catch (Exception e) {
-            throw new TextAPIException(e);
-        }
-
-        return microformats;
     }
 
     /**

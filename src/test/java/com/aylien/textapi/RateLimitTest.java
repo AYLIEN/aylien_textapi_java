@@ -17,6 +17,8 @@
 package com.aylien.textapi;
 
 import com.aylien.textapi.parameters.RelatedParams;
+import com.aylien.textapi.parameters.SentimentParams;
+import com.aylien.textapi.responses.Sentiment;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,7 +36,7 @@ public class RateLimitTest extends Fixtures {
                 .setHeader("X-RateLimit-Reset", reset)
                 .setBody("<result></result>")
         );
-        textAPIClient.related(new RelatedParams("test", 20));
+        textAPIClient.sentiment(new SentimentParams("test", null, "tweet"));
         Assert.assertEquals(textAPIClient.getRateLimits().getRemaining(), Integer.parseInt(remaining));
         Assert.assertEquals(textAPIClient.getRateLimits().getLimit(), Integer.parseInt(limit));
         Assert.assertEquals(textAPIClient.getRateLimits().getReset(), Integer.parseInt(reset));
