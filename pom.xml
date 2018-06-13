@@ -3,7 +3,7 @@
   <groupId>com.aylien.textapi</groupId>
   <artifactId>client</artifactId>
   <packaging>jar</packaging>
-  <version>0.7.0</version>
+  <version>0.7.1-SNAPSHOT</version>
   <name>client</name>
   <description>AYLIEN's officially supported Java client library for accessing Text API</description>
   <url>https://developer.aylien.com/</url>
@@ -27,7 +27,7 @@
     <url>https://github.com/AYLIEN/aylien_textapi_java</url>
     <connection>scm:git:git://github.com/AYLIEN/aylien_textapi_java.git</connection>
     <developerConnection>scm:git:git@github.com:AYLIEN/aylien_textapi_java.git</developerConnection>
-    <tag>client-0.7.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
