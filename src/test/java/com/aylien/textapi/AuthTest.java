@@ -17,6 +17,8 @@
 package com.aylien.textapi;
 
 import com.aylien.textapi.parameters.RelatedParams;
+import com.aylien.textapi.parameters.SentimentParams;
+import com.aylien.textapi.responses.Sentiment;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 import org.junit.Assert;
@@ -38,7 +40,7 @@ public class AuthTest extends Fixtures {
         try {
             mockWebServer.enqueue(new MockResponse()
                     .setResponseCode(403).setBody("Authentication failed"));
-            textAPIClient.related(new RelatedParams("android", 20));
+            textAPIClient.sentiment(new SentimentParams("test", null, "tweet"));
             Assert.fail("should fail");
         } catch (TextAPIException e) {
             Assert.assertEquals(e.getCause().getMessage(), "Authentication failed");
@@ -48,7 +50,7 @@ public class AuthTest extends Fixtures {
     @Test
     public void authParamsAreSent() throws Exception {
         mockWebServer.enqueue(new MockResponse().setBody("<result></result>"));
-        textAPIClient.related(new RelatedParams("android", 20));
+        textAPIClient.sentiment(new SentimentParams("test", null, "tweet"));
         RecordedRequest request = mockWebServer.takeRequest();
         Assert.assertEquals(request.getHeader("X-AYLIEN-TextAPI-Application-ID"), "test_id");
         Assert.assertEquals(request.getHeader("X-AYLIEN-TextAPI-Application-Key"), "test_key");
