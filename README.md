@@ -14,7 +14,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.aylien.textapi</groupId>
   <artifactId>client</artifactId>
-  <version>0.5.1</version>
+  <version>0.7.0</version>
 </dependency>
 ```
 
@@ -22,7 +22,7 @@ Add this dependency to your project's POM:
 
 Add this to your `libraryDependencies`:
 
-    "com.aylien.textapi" % "client" % "0.5.1"
+    "com.aylien.textapi" % "client" % "0.7.0"
 
 See the [Developers Guide](https://developer.aylien.com/docs) for additional documentation.
 
